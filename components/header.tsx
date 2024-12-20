@@ -1,5 +1,4 @@
 import React from "react";
-import { ModeToggle } from "./theme-toggle-button";
 import { Button } from "./ui/button";
 
 const Header = () => {
@@ -14,7 +13,6 @@ const Header = () => {
                 <Button variant={'outline'} className="hover:bg-blue-500 hover:text-white">
                     Crear Cuenta
                 </Button>
-                <ModeToggle />
             </div>
         </header>
 

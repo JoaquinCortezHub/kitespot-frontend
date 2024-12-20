@@ -14,14 +14,18 @@ export default function WeatherForm() {
 		queryKey: ["weather", searchTrigger],
 		queryFn: async () => {
 			if (!searchTrigger) return null;
+
 			const response = await fetch(
-				`http://localhost:8001/weather?city=${encodeURIComponent(
+				`http://localhost:8000/weather?city=${encodeURIComponent(
 					searchTrigger
 				)}`
 			);
+
 			if (!response.ok) {
 				throw new Error("Weather data fetch failed.");
-			}
+			};
+
+
 			return response.json();
 		},
 		enabled: !!searchTrigger,
@@ -33,7 +37,7 @@ export default function WeatherForm() {
 	};
 
 	return (
-		<div className="min-h-[calc(100vh-theme(spacing.36))] flex flex-col items-center justify-center">
+		<div className="min-h-[calc(100vh-theme(spacing.36))] flex flex-col items-center justify-start">
 			{!data ? (
 				<>
 					<h2 className="text-4xl font-semibold text-slate-800">
