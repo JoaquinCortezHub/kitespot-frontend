@@ -7,12 +7,12 @@ const Header = () => {
         <header className="flex items-center justify-between my-6">
             <div>
                 <h1 className="font-semibold text-xl">
-                    Weather App
+                    Kite Cast
                 </h1>
             </div>
             <div className="flex items-center justify-between gap-8">
                 <Button variant={'outline'} className="hover:bg-blue-500 hover:text-white">
-                    Sign Up
+                    Crear Cuenta
                 </Button>
                 <ModeToggle />
             </div>
