@@ -1,35 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "./ui/button";
-import WeatherData from "@/types/weatherData";
 import DataDisplay from "./dataDisplay";
+import { useWeatherQuery } from "@/hooks/useWeatherQuery";
+import { useImageQuery } from "@/hooks/useImageQuery";
 
 export default function WeatherForm() {
 	const [location, setLocation] = useState("");
 	const [searchTrigger, setSearchTrigger] = useState("");
 
-	const { data, isLoading, error } = useQuery<WeatherData>({
-		queryKey: ["weather", searchTrigger],
-		queryFn: async () => {
-			if (!searchTrigger) return null;
-
-			const response = await fetch(
-				`http://localhost:8000/weather?city=${encodeURIComponent(
-					searchTrigger
-				)}`
-			);
-
-			if (!response.ok) {
-				throw new Error("Weather data fetch failed.");
-			};
-
-
-			return response.json();
-		},
-		enabled: !!searchTrigger,
-	});
+	const {
+		data: weatherData,
+		isLoading: weatherLoading,
+		error: weatherError,
+	} = useWeatherQuery(searchTrigger);
+	const {
+		data: imageData,
+		isLoading: imageLoading,
+		error: imageError,
+	} = useImageQuery(searchTrigger);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -38,7 +28,7 @@ export default function WeatherForm() {
 
 	return (
 		<div className="min-h-[calc(100vh-theme(spacing.36))] flex flex-col items-center justify-start">
-			{!data ? (
+			{!weatherData ? (
 				<>
 					<h2 className="text-4xl font-semibold text-slate-800">
 						Bienvenido a Kite Cast.
@@ -57,18 +47,25 @@ export default function WeatherForm() {
 						<Button
 							type="submit"
 							className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
-							disabled={isLoading}
+							disabled={weatherLoading || imageLoading}
 						>
-							{isLoading ? "Cargando..." : "Buscar"}
+							{weatherLoading || imageLoading ? "Cargando..." : "Buscar"}
 						</Button>
 					</form>
 				</>
 			) : (
 				<div className="w-full">
-					{error && (
-						<p className="text-red-500 text-center">Error: {error.message}</p>
+					{weatherError && (
+						<p className="text-red-500 text-center">
+							Error: {weatherError.message}
+						</p>
 					)}
-					{data && <DataDisplay data={data} />}
+					{imageError && (
+						<p className="text-red-500 text-center">
+							Error: {imageError.message}
+						</p>
+					)}
+					{weatherData && <DataDisplay weather={weatherData} image={imageData} />}
 				</div>
 			)}
 		</div>

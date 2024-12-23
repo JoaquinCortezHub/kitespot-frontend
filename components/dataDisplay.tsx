@@ -7,25 +7,39 @@ import InfoCard from "./info-card-number";
 import InfoCardString from "./info-card-string";
 import InfoCardToolTip from "./info-card-tooltip";
 import KiteRecommender from "@/lib/kiteRecommender";
+import ImageBanner from "./image-banner";
 
 type WeatherDisplayProps = {
-	data: WeatherData;
+	weather: WeatherData,
+	image: {
+		imageUrl: string;
+		author: {
+			firstName: string;
+			lastName: string;
+		}
+	}
 };
 
-export default function DataDisplay({ data }: WeatherDisplayProps) {
-	const formattedLastUpdated = format(data.current.last_updated, "HH:mm ");
+export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
+	const formattedLastUpdated = format(weather.current.last_updated, "HH:mm ");
+	const fallBackImage = {
+		imageUrl: "https://via.placeholder.com/800x350?text=No+Image+Available",
+		author: { firstName: "Unknown", lastName: "" }
+	};
+
+	const safeImage = image?.imageUrl ? image : fallBackImage;
 
 	return (
 		<div className="mx-auto">
 			<div className="flex flex-col">
-				<div className="w-full bg-slate-500 h-[250px] rounded-xl mb-2"></div>
+				<ImageBanner imageUrl={safeImage.imageUrl} author={safeImage.author} />
 				<div className="flex items-center justify-start gap-2">
 					<h1 className="text-3xl font-bold">
-						{data.location.name}, {data.location.region}
+						{weather.location.name}, {weather.location.region}
 					</h1>
 					<img
-						src={data.current.condition.icon}
-						alt={data.current.condition.text}
+						src={weather.current.condition.icon}
+						alt={weather.current.condition.text}
 					/>
 				</div>
 				<div>
@@ -38,25 +52,25 @@ export default function DataDisplay({ data }: WeatherDisplayProps) {
 						title="Viento"
 						icon={Wind}
 						description="Velocidad Actual"
-						data={data.current.wind_kph}
+						data={weather.current.wind_kph}
 					/>
 					<InfoCard
                         title="Rachas"
                         icon={Triangle}
                         description="Máxima Racha"
-                        data={data.current.gust_kph}
+                        data={weather.current.gust_kph}
                     />
                     <InfoCardString
                         title="Dirección"
                         icon={Compass}
                         description="Dirección Actual"
-                        data={data.current.wind_dir}
+                        data={weather.current.wind_dir}
                     />
                     <InfoCardToolTip
                         title="Kite"
                         icon={Sailboat}
                         description="Tamaño Recomendado"
-                        data={KiteRecommender(data.current.wind_kph)}
+                        data={KiteRecommender(weather.current.wind_kph)}
                         label="mts"
                     />
 				</div>

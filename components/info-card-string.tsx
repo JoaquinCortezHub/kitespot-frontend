@@ -1,7 +1,4 @@
-import convertToKnots from "@/lib/convertToKnots";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Wind } from "lucide-react";
-import WeatherData from "@/types/weatherData";
 
 interface InfoCardProps {
 	title: string;
