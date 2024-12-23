@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import DataDisplay from "./dataDisplay";
+import SearchBar from "./search-bar";
 import { useWeatherQuery } from "@/hooks/useWeatherQuery";
 import { useImageQuery } from "@/hooks/useImageQuery";
 
@@ -24,6 +25,10 @@ export default function WeatherForm() {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setSearchTrigger(location);
+	};
+
+	const handleSearch = (query: string) => {
+		setSearchTrigger(query);
 	};
 
 	return (
@@ -55,6 +60,11 @@ export default function WeatherForm() {
 				</>
 			) : (
 				<div className="w-full">
+					<div className="mb-4">
+						<SearchBar
+							onSearch={handleSearch}
+						/>
+					</div>
 					{weatherError && (
 						<p className="text-red-500 text-center">
 							Error: {weatherError.message}
