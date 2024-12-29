@@ -8,6 +8,7 @@ import InfoCardString from "./info-card-string";
 import InfoCardToolTip from "./info-card-tooltip";
 import KiteRecommender from "@/lib/kiteRecommender";
 import ImageBanner from "./image-banner";
+import ForecastDisplay from "./forecastDisplay";
 
 type WeatherDisplayProps = {
 	weather: WeatherData,
@@ -75,6 +76,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
                         label="mts"
                     />
 				</div>
+				<ForecastDisplay forecast={forecast} />
 			</div>
 		</div>
 	);
