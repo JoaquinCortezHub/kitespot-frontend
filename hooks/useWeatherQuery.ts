@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import WeatherData from "@/types/weatherData";
+import { WeatherData } from "@/types/weatherData";
 
 export const useWeatherQuery = (searchTrigger: string) => {
-	return useQuery<WeatherData>({
+	return useQuery<WeatherData | null>({
 		queryKey: ["weather", searchTrigger],
 		queryFn: async () => {
 			if (!searchTrigger) return null;
@@ -15,9 +15,14 @@ export const useWeatherQuery = (searchTrigger: string) => {
 
 			if (!response.ok) {
 				throw new Error("Weather data fetch failed.");
-			}
+			};
 
-			return response.json();
+			const data = await response.json();
+
+			return {
+				currentWeather: data.currentWeather,
+				forecast: data.forecast
+			}; 
 		},
 		enabled: !!searchTrigger, 
 	});
