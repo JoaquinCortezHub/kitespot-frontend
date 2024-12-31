@@ -1,4 +1,4 @@
-import convertToKnots from "@/lib/convertToKnots";
+import convertToKnots from "@/utils/convertToKnots";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface InfoCardProps {
@@ -25,7 +25,9 @@ export default function InfoCard({
 						</div>
 						<div className="flex flex-col items-center">
 							<h2 className="text-gray-500 font-medium">{description}</h2>
-							<p className="font-bold text-xl">{Math.round(convertToKnots(data))} nudos</p>
+							<p className="font-bold text-xl">
+								{Math.round(convertToKnots(data))} nudos
+							</p>
 						</div>
 					</div>
 				</CardContent>

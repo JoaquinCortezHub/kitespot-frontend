@@ -6,9 +6,10 @@ import { Compass, Sailboat, Triangle, Wind } from "lucide-react";
 import InfoCard from "./info-card-number";
 import InfoCardString from "./info-card-string";
 import InfoCardToolTip from "./info-card-tooltip";
-import KiteRecommender from "@/lib/kiteRecommender";
+import KiteRecommender from "@/utils/kiteRecommender";
 import ImageBanner from "./image-banner";
 import ForecastDisplay from "./forecastDisplay";
+import { Separator } from "./ui/separator";
 
 type WeatherDisplayProps = {
 	weather: WeatherData,
@@ -49,6 +50,10 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 						Última actualización: {formattedLastUpdated}
 					</p>
 				</div>
+				<div className="mt-4 text-2xl font-bold text-slate-600">
+					<h4 className="mb-1">Hoy</h4>
+				</div>
+					<hr className="stroke-2" />
 				<div className="grid grid-cols-4 justify-items-stretch mt-6 gap-4 ">
 					<InfoCard
 						title="Viento"
@@ -76,6 +81,10 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
                         label="mts"
                     />
 				</div>
+				<div className="mt-4 text-2xl font-bold text-slate-600">
+					<h4 className="mb-1">Esta Semana</h4>
+				</div>
+					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />
 			</div>
 		</div>
