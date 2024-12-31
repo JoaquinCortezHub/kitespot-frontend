@@ -2,7 +2,8 @@ import { WeatherData } from "@/types/weatherData";
 
 interface DayForecast {
 	date: string;
-	averageTemp: number;
+	maxTemp: number;
+	minTemp: number;
 	averageWind: number;
 	maxGust: number;
 	weatherIcon: string;
@@ -25,12 +26,12 @@ export const groupForecastByDay = (
 
 	return Object.entries(groupedData).map(([date, items]) => ({
 		date,
-		averageTemp:
-			items.reduce((sum, item) => sum + (item.main.temp - 273.15), 0) /
-			items.length,
+		maxTemp: Math.max(...items.map((item) => item.main.temp)),
+		minTemp: Math.min(...items.map((item) => item.main.temp)),
 		averageWind:
-			items.reduce((sum, item) => sum + item.wind.speed, 0) / items.length,
-		maxGust: Math.max(...items.map((item) => item.wind.gust)),
+			items.reduce((sum, item) => sum + (item.wind.speed || 0), 0) /
+			items.length,
+		maxGust: Math.max(...items.map((item) => item.wind.gust || 0)),
 		weatherIcon: items[Math.floor(items.length / 2)].weather[0].icon,
 		weatherDescription:
 			items[Math.floor(items.length / 2)].weather[0].description,

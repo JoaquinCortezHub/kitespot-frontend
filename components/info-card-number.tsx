@@ -26,7 +26,7 @@ export default function InfoCard({
 						<div className="flex flex-col items-center">
 							<h2 className="text-gray-500 font-medium">{description}</h2>
 							<p className="font-bold text-xl">
-								{Math.round(convertToKnots(data))} nudos
+								{Math.round(convertToKnots(data,'km/h'))} nudos
 							</p>
 						</div>
 					</div>

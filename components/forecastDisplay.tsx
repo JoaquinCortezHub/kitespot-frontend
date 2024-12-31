@@ -46,19 +46,25 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 										className="w-16 h-16"
 									/>
 									<div className="text-center">
-										<p className="text-2xl font-semibold">
-											{Math.round(day.averageTemp)}°C
-										</p>
+										<div className="flex items-center justify-between gap-2">
+											<p className="text-2xl font-semibold">
+												{Math.round(day.maxTemp)}°C
+											</p>
+											/
+											<p className="text-2xl font-semibold text-slate-400">
+												{Math.round(day.minTemp)}°C
+											</p>
+										</div>
 										<div className="flex items-center justify-between gap-6 my-2">
 											<div className="flex flex-col items-center justify-center">
 												<p className="text-md font-medium">
-													{Math.round(convertToKnots(day.averageWind))}kts
+													{Math.round(convertToKnots(day.averageWind, 'mtrs/sec'))}kts
 												</p>
 												<p>vel.</p>
 											</div>
 											<div className="flex flex-col items-center justify-center">
 												<p className="text-md font-medium">
-													{Math.round(day.maxGust)}kts
+													{Math.round(convertToKnots(day.maxGust, 'mtrs/sec'))}kts
 												</p>
 												<p>racha</p>
 											</div>
@@ -97,7 +103,7 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 												{format(new Date(hour.dt_txt), "HH:mm")}
 											</TableCell>
 											<TableCell>
-												{Math.round(hour.main.temp - 273.15)}°C
+												{Math.round(hour.main.temp)}°C
 											</TableCell>
 											<TableCell>
 												<img
@@ -108,12 +114,12 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 											</TableCell>
 											<TableCell>
 												<div className="text-center">
-													{Math.round(convertToKnots(hour.wind.speed))}
+													{Math.round(convertToKnots(hour.wind.speed, 'mtrs/sec'))}
 												</div>
 											</TableCell>
 											<TableCell>
 												<div className="text-center">
-													{Math.round(convertToKnots(hour.wind.gust))}
+													{Math.round(convertToKnots(hour.wind.gust, 'mtrs/sec'))}
 												</div>
 											</TableCell>
 											<TableCell>
