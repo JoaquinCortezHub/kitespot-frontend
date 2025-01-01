@@ -58,13 +58,13 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 										<div className="flex items-center justify-between gap-6 my-2">
 											<div className="flex flex-col items-center justify-center">
 												<p className="text-md font-medium">
-													{Math.round(convertToKnots(day.averageWind, 'mtrs/sec'))}kts
+													{day.averageWind}kts
 												</p>
 												<p>vel.</p>
 											</div>
 											<div className="flex flex-col items-center justify-center">
 												<p className="text-md font-medium">
-													{Math.round(convertToKnots(day.maxGust, 'mtrs/sec'))}kts
+													{day.maxGust}kts
 												</p>
 												<p>racha</p>
 											</div>

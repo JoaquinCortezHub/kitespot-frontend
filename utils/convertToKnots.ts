@@ -1,11 +1,15 @@
-const convertToKnots = (speed: number, unit: string): number => {
-    if(unit === 'mtrs/sec') {
-        const knots = speed * 1.944;
-        return knots;
-    }
+const convertToKnots = (speed: number , unit: string): number => {
+    if(speed === undefined || speed === null) return 0;
 
-    const knots = speed * 0.539957;
-    return knots;
+    switch(unit) {
+        case 'mtrs/sec':
+            return speed * 1.944;
+        case 'km/h':
+            return speed * 0.539957;
+        default:
+            console.warn('Unknown unit type', unit);
+            return speed;
+    };
 };
 
 export default convertToKnots;
