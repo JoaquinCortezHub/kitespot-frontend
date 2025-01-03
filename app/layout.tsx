@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ClientLayout from "./client-layout";
 
 export const metadata: Metadata = {
-  title: "Kite Cast",
+  title: "KiteSpot",
   description: "Fullstack weather app with Next and Nest.",
 };
 

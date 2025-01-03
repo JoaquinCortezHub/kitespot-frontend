@@ -6,7 +6,7 @@ const Header = () => {
         <header className="flex items-center justify-between my-6">
             <div>
                 <h1 className="font-semibold text-xl">
-                    Kite Cast
+                    KiteSpot
                 </h1>
             </div>
             <div className="flex items-center justify-between gap-8">

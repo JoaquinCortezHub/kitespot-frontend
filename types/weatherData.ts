@@ -1,29 +1,54 @@
-interface WeatherLocation {
-	name: string;
-	region: string;
-	country: string;
-	lat: number;
-	lon: number;
-	tz_id: string;
-	localtime: string;
-};
+// interface WeatherLocation {
+// 	name: string;
+// 	region: string;
+// 	country: string;
+// 	lat: number;
+// 	lon: number;
+// 	tz_id: string;
+// 	localtime: string;
+// };
 
 interface CurrentWeather {
-	temp_c: number;
-	temp_f: number;
-	wind_kph: number;
-	wind_mph: number;
-	wind_dir: string;
-	pressure_mb: number;
-	humidity: number;
-	feelslike_c: number;
-	feelslike_f: number;
-	condition: {
-		text: string;
-		icon: string;
+	coord: {
+		lon: number;
+		lat: number;
 	};
-	last_updated: string;
-};
+	weather: {
+		id: number;
+		main: string;
+		description: string;
+		icon: string;
+	}[];
+	main: {
+		temp: number;
+		feels_like: number;
+		temp_min: number;
+		temp_max: number;
+		pressure: number;
+		humidity: number;
+		sea_level?: number;
+		grnd_level?: number;
+	};
+	wind: {
+		speed: number;
+		deg: number;
+		gust?: number;
+	};
+	rain?: {
+		"1h"?: number;
+	};
+	clouds: {
+		all: number;
+	};
+	dt: number;
+	sys: {
+		country: string;
+		sunrise: number;
+		sunset: number;
+	};
+	name: string;
+	cod: number;
+}
 
 interface ForecastItem {
 	dt: number;
@@ -61,7 +86,7 @@ interface ForecastItem {
 		pod: string;
 	};
 	dt_txt: string;
-};
+}
 
 interface ForecastCity {
 	id: number;
@@ -75,13 +100,10 @@ interface ForecastCity {
 	timezone: number;
 	sunrise: number;
 	sunset: number;
-};
+}
 
 export interface WeatherData {
-	currentWeather: {
-		location: WeatherLocation;
-		current: CurrentWeather;
-	};
+	currentWeather: CurrentWeather,
 	forecast: {
 		cod: string;
 		message: number;
@@ -89,4 +111,4 @@ export interface WeatherData {
 		list: ForecastItem[];
 		city: ForecastCity;
 	};
-};
+}

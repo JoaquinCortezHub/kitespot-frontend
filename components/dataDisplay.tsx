@@ -2,7 +2,7 @@ import { WeatherData } from "@/types/weatherData";
 import React from "react";
 import { format } from "date-fns";
 
-import { Compass, Sailboat, Triangle, Wind } from "lucide-react";
+import { Compass, Info, Sailboat, Triangle, Wind } from "lucide-react";
 import InfoCard from "./info-card-number";
 import InfoCardString from "./info-card-string";
 import InfoCardToolTip from "./info-card-tooltip";
@@ -10,6 +10,9 @@ import KiteRecommender from "@/utils/kiteRecommender";
 import ImageBanner from "./image-banner";
 import ForecastDisplay from "./forecastDisplay";
 import { Separator } from "./ui/separator";
+import convertToKnots from "@/utils/convertToKnots";
+import { DegreesToCardinal } from "@/utils/windConverter";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 type WeatherDisplayProps = {
 	weather: WeatherData,
@@ -24,7 +27,7 @@ type WeatherDisplayProps = {
 
 export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 	const {currentWeather, forecast} = weather;
-	const formattedLastUpdated = format(currentWeather.current.last_updated, "HH:mm ");
+	const formattedLastUpdated = format(currentWeather.dt, "HH:mm ");
 	const fallBackImage = {
 		imageUrl: "https://via.placeholder.com/800x350?text=No+Image+Available",
 		author: { firstName: "Unknown", lastName: "" }
@@ -38,11 +41,11 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 				<ImageBanner imageUrl={safeImage.imageUrl} author={safeImage.author} />
 				<div className="flex items-center justify-start gap-2">
 					<h1 className="text-3xl font-bold">
-						{currentWeather.location.name}, {currentWeather.location.region}
+						{currentWeather.name}, {currentWeather.sys.country}
 					</h1>
 					<img
-						src={currentWeather.current.condition.icon}
-						alt={currentWeather.current.condition.text}
+						src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}.png`}
+						alt={currentWeather.weather[0].description}
 					/>
 				</div>
 				<div>
@@ -59,30 +62,40 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 						title="Viento"
 						icon={Wind}
 						description="Velocidad Actual"
-						data={currentWeather.current.wind_kph}
+						data={convertToKnots(currentWeather.wind.speed, 'mtrs/sec')}
 					/>
 					<InfoCard
                         title="Rachas"
                         icon={Triangle}
                         description="Máxima Racha"
-                        data={currentWeather.current.wind_kph}
+                        data={convertToKnots(currentWeather.wind.gust!, 'mtrs/sec')}
                     />
                     <InfoCardString
                         title="Dirección"
                         icon={Compass}
                         description="Dirección Actual"
-                        data={currentWeather.current.wind_dir}
+                        data={DegreesToCardinal(currentWeather.wind.deg)}
                     />
                     <InfoCardToolTip
                         title="Kite"
                         icon={Sailboat}
                         description="Tamaño Recomendado"
-                        data={KiteRecommender(currentWeather.current.wind_kph)}
+                        data={KiteRecommender(currentWeather.wind.speed)}
                         label="mts"
                     />
 				</div>
-				<div className="mt-4 text-2xl font-bold text-slate-600">
+				<div className="flex items-center justify-start gap-2 mt-4 text-2xl font-bold text-slate-600">
 					<h4 className="mb-1">Esta Semana</h4>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger>
+								<Info />
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>Lo valores de velocidad y rachas máximas son aproximados.</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
 				</div>
 					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />
