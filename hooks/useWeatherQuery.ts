@@ -15,15 +15,16 @@ export const useWeatherQuery = (searchTrigger: string) => {
 
 			if (!response.ok) {
 				throw new Error("Weather data fetch failed.");
-			};
+			}
 
 			const data = await response.json();
 
 			return {
 				currentWeather: data.currentWeather,
-				forecast: data.forecast
-			}; 
+				forecast: data.forecast,
+				lastUpdated: new Date().toISOString(),
+			};
 		},
-		enabled: !!searchTrigger, 
+		enabled: !!searchTrigger,
 	});
 };

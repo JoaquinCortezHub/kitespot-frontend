@@ -26,8 +26,8 @@ type WeatherDisplayProps = {
 };
 
 export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
-	const {currentWeather, forecast} = weather;
-	const formattedLastUpdated = format(currentWeather.dt, "HH:mm ");
+	const {currentWeather, forecast, lastUpdated} = weather;
+	const formattedLastUpdated = lastUpdated ? format(new Date(lastUpdated), "HH:mm") : "N/A";
 	const fallBackImage = {
 		imageUrl: "https://via.placeholder.com/800x350?text=No+Image+Available",
 		author: { firstName: "Unknown", lastName: "" }
@@ -86,16 +86,6 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 				</div>
 				<div className="flex items-center justify-start gap-2 mt-4 text-2xl font-bold text-slate-600">
 					<h4 className="mb-1">Esta Semana</h4>
-					<TooltipProvider>
-						<Tooltip>
-							<TooltipTrigger>
-								<Info />
-							</TooltipTrigger>
-							<TooltipContent>
-								<p>Lo valores de velocidad y rachas máximas son aproximados.</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
 				</div>
 					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />

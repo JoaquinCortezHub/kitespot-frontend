@@ -111,4 +111,5 @@ export interface WeatherData {
 		list: ForecastItem[];
 		city: ForecastCity;
 	};
+	lastUpdated: string
 }
