@@ -2,17 +2,18 @@ import { WeatherData } from "@/types/weatherData";
 import React from "react";
 import { format } from "date-fns";
 
-import { Compass, Info, Sailboat, Triangle, Wind } from "lucide-react";
+import { Compass, Sailboat, Triangle, Wind } from "lucide-react";
 import InfoCard from "./info-card-number";
 import InfoCardString from "./info-card-string";
 import InfoCardToolTip from "./info-card-tooltip";
 import KiteRecommender from "@/utils/kiteRecommender";
 import ImageBanner from "./image-banner";
 import ForecastDisplay from "./forecastDisplay";
-import { Separator } from "./ui/separator";
 import convertToKnots from "@/utils/convertToKnots";
 import { DegreesToCardinal } from "@/utils/windConverter";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { useWeatherMapQuery } from "@/hooks/useMapQuery";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import WeatherMap from "./weather-map";
 
 type WeatherDisplayProps = {
 	weather: WeatherData,
@@ -34,7 +35,9 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 	};
 
 	const safeImage = image?.imageUrl ? image : fallBackImage;
-
+	
+	const { data: windMap, isLoading: windLoading } = useWeatherMapQuery("wind");
+	const { data: precipitationMap, isLoading: precipitationLoading } = useWeatherMapQuery("precipitation");
 	return (
 		<div className="mx-auto">
 			<div className="flex flex-col">
@@ -92,7 +95,43 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 				<div className="mt-4 text-2xl font-bold text-slate-600">
 					<h4 className="mb-1">Spot</h4>
 				</div>
-					<hr className="stroke-2" />
+				<hr className="stroke-2" />
+				<div className="mt-4">
+					<Tabs defaultValue="wind">
+						<TabsList>
+							<TabsTrigger value="wind">Wind Map</TabsTrigger>
+							<TabsTrigger value="precipitation">Precipitation Map</TabsTrigger>
+						</TabsList>
+						<TabsContent value="wind">
+							{windLoading ? (
+								<p>Loading wind map...</p>
+							) : (
+								windMap && (
+									<WeatherMap
+										tileUrl={windMap.titleUrl}
+										coordinates={windMap.coordinates}
+										zoom={windMap.zoom}
+										layer={windMap.layer}
+									/>
+								)
+							)}
+						</TabsContent>
+						<TabsContent value="precipitation">
+							{precipitationLoading ? (
+								<p>Loading precipitation map...</p>
+							) : (
+								precipitationMap && (
+									<WeatherMap
+										tileUrl={precipitationMap.titleUrl}
+										coordinates={precipitationMap.coordinates}
+										zoom={precipitationMap.zoom}
+										layer={precipitationMap.layer}
+									/>
+								)
+							)}
+						</TabsContent>
+					</Tabs>
+				</div>
 			</div>
 		</div>
 	);
