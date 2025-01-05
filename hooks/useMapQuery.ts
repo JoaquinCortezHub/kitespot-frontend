@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 interface WeatherMapData {
-    titleUrl: string;
+    tileUrl: string;
     coordinates: {
         lat: number;
         lon: number;
@@ -10,21 +10,24 @@ interface WeatherMapData {
     layer: string;
 }
 
-export const useWeatherMapQuery = (type: "wind" | "precipitation") => {
+export const useWeatherMapQuery = (type: "wind" | "precipitation", city: string) => {
     return useQuery<WeatherMapData | undefined>({
-        queryKey: ["weatherMap", type],
+        queryKey: ["weatherMap", type, city],
         queryFn: async () => {
-            const response = await fetch(
-                `http://localhost:8000/maps/${type}`
-            );
+            if(!city || city === undefined) {
+                throw new Error('A city param is required to fetch weather maps.')
+            };
+
+            const response = await fetch(`http://localhost:8000/maps/${type}?city=${encodeURIComponent(city)}`);
 
             if(!response.ok) {
                 throw new Error('Weather map fetch failed.');
             };
-
+            
             const data = await response.json();
+            console.log("Fetched map data:", data);
             return data;
         },
-        enabled: !!type
+        enabled: !!type && !!city
     })
 }

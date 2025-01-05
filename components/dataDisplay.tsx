@@ -29,6 +29,7 @@ type WeatherDisplayProps = {
 export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 	const {currentWeather, forecast, lastUpdated} = weather;
 	const formattedLastUpdated = lastUpdated ? format(new Date(lastUpdated), "HH:mm") : "N/A";
+	const city = currentWeather.name;
 	const fallBackImage = {
 		imageUrl: "https://via.placeholder.com/800x350?text=No+Image+Available",
 		author: { firstName: "Unknown", lastName: "" }
@@ -36,8 +37,8 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 
 	const safeImage = image?.imageUrl ? image : fallBackImage;
 	
-	const { data: windMap, isLoading: windLoading } = useWeatherMapQuery("wind");
-	const { data: precipitationMap, isLoading: precipitationLoading } = useWeatherMapQuery("precipitation");
+	const { data: windMap, isLoading: windLoading } = useWeatherMapQuery("wind", city);
+	const { data: precipitationMap, isLoading: precipitationLoading } = useWeatherMapQuery("precipitation", city);
 	return (
 		<div className="mx-auto">
 			<div className="flex flex-col">
@@ -93,14 +94,14 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />
 				<div className="mt-4 text-2xl font-bold text-slate-600">
-					<h4 className="mb-1">Spot</h4>
+					<h4 className="mb-1">Mapa</h4>
 				</div>
 				<hr className="stroke-2" />
-				<div className="mt-4">
+				<div className="mt-4 mb-8">
 					<Tabs defaultValue="wind">
 						<TabsList>
-							<TabsTrigger value="wind">Wind Map</TabsTrigger>
-							<TabsTrigger value="precipitation">Precipitation Map</TabsTrigger>
+							<TabsTrigger value="wind">Viento</TabsTrigger>
+							<TabsTrigger value="precipitation">Precipitación</TabsTrigger>
 						</TabsList>
 						<TabsContent value="wind">
 							{windLoading ? (
@@ -108,7 +109,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 							) : (
 								windMap && (
 									<WeatherMap
-										tileUrl={windMap.titleUrl}
+										tileUrl={windMap.tileUrl}
 										coordinates={windMap.coordinates}
 										zoom={windMap.zoom}
 										layer={windMap.layer}
@@ -122,7 +123,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 							) : (
 								precipitationMap && (
 									<WeatherMap
-										tileUrl={precipitationMap.titleUrl}
+										tileUrl={precipitationMap.tileUrl}
 										coordinates={precipitationMap.coordinates}
 										zoom={precipitationMap.zoom}
 										layer={precipitationMap.layer}
