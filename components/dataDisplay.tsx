@@ -14,6 +14,7 @@ import { DegreesToCardinal } from "@/utils/windConverter";
 import { useWeatherMapQuery } from "@/hooks/useMapQuery";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import WeatherMap from "./weather-map";
+import Image from "next/image";
 
 type WeatherDisplayProps = {
 	weather: WeatherData,
@@ -74,11 +75,12 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
                         description="Máxima Racha"
                         data={convertToKnots(currentWeather.wind.gust!, 'mtrs/sec')}
                     />
-                    <InfoCardString
+                    <InfoCardToolTip
                         title="Dirección"
                         icon={Compass}
                         description="Dirección Actual"
                         data={DegreesToCardinal(currentWeather.wind.deg)}
+						content={<img src="wind-cardinal-direction.png" alt="tooltip image" />}
                     />
                     <InfoCardToolTip
                         title="Kite"
@@ -86,6 +88,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
                         description="Tamaño Recomendado"
                         data={KiteRecommender(currentWeather.wind.speed)}
                         label="mts"
+						content="Puede variar según el peso del rider"
                     />
 				</div>
 				<div className="flex items-center justify-start gap-2 mt-4 text-2xl font-bold text-slate-600">

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { JSX } from "react";
 
 interface InfoCardProps {
 	title: string;
@@ -8,6 +9,7 @@ interface InfoCardProps {
 	description: string;
 	data: string;
 	label?: string;
+	content: string | JSX.Element;
 }
 
 export default function InfoCardToolTip({
@@ -16,6 +18,7 @@ export default function InfoCardToolTip({
 	description,
 	data,
 	label,
+	content
 }: InfoCardProps) {
 	return (
 		<Card className="bg-white ">
@@ -27,8 +30,12 @@ export default function InfoCardToolTip({
 							<TooltipTrigger>
 								<Info />
 							</TooltipTrigger>
-							<TooltipContent>
-								<p>Puede variar según el peso del rider</p>
+							<TooltipContent className="max-w-sm max-h-lg overflow-auto">
+								{typeof content === 'string' ? (
+									content
+								) : (
+									content
+								)}
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
