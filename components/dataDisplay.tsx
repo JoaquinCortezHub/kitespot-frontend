@@ -96,7 +96,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 				</div>
 					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />
-				<div className="mt-4 text-2xl font-bold text-slate-600">
+				{/* <div className="mt-4 text-2xl font-bold text-slate-600">
 					<h4 className="mb-1">Mapa</h4>
 				</div>
 				<hr className="stroke-2" />
@@ -135,7 +135,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 							)}
 						</TabsContent>
 					</Tabs>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
