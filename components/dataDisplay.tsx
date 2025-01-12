@@ -42,7 +42,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 	const { data: precipitationMap, isLoading: precipitationLoading } = useWeatherMapQuery("precipitation", city);
 	return (
 		<div className="mx-auto">
-			<div className="flex flex-col">
+			<div className="flex flex-col mb-16">
 				<ImageBanner imageUrl={safeImage.imageUrl} author={safeImage.author} />
 				<div className="flex items-center justify-start gap-2">
 					<h1 className="text-3xl font-bold">

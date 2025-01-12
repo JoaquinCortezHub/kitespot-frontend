@@ -1,7 +1,7 @@
 import convertToKnots from "../utils/convertToKnots";
 
 const KiteRecommender = (windSpeed: number): string => {
-	const knots = convertToKnots(windSpeed, 'km/h');
+	const knots = convertToKnots(windSpeed, 'mtrs/sec');
 
 	if (!knots) {
 		throw new Error("Error receiving wind speed data.");

@@ -21,6 +21,7 @@ import {
 	TableRow,
 } from "./ui/table";
 import { DegreesToCardinal } from "@/utils/windConverter";
+import KiteRecommender from "@/utils/kiteRecommender";
 
 type ForecastDisplayProps = {
 	forecast: WeatherData["forecast"];
@@ -94,6 +95,7 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 										</TableHead>
 										<TableHead className="text-center">Rachas (kts)</TableHead>
 										<TableHead className="text-center">Viento</TableHead>
+										<TableHead className="text-center">Kite</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>
@@ -125,6 +127,11 @@ const ForecastDisplay = ({ forecast }: ForecastDisplayProps) => {
 											<TableCell>
 												<div className="text-center">
 												{DegreesToCardinal(hour.wind.deg)}
+												</div>
+											</TableCell>
+											<TableCell>
+												<div className="text-center">
+													{KiteRecommender(hour.wind.speed)}
 												</div>
 											</TableCell>
 										</TableRow>
