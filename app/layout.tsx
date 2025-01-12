@@ -13,5 +13,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ClientLayout><Header></Header>{children}</ClientLayout>;
+  return(
+    <ClientLayout>
+      <Header />
+      <main className="">
+        {children}
+      </main>
+    </ClientLayout>
+  ); 
 }

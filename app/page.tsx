@@ -1,11 +1,11 @@
 import WeatherForm from "@/components/form";
-import Header from "@/components/header";
+import HeroSection from "@/components/hero-section";
 
 export default function Home() {
   return(
-      <div className="container mx-auto px-4">
+      <div className="mx-auto">
         <main className="mt-8">
-          <WeatherForm />
+          <HeroSection />
         </main>
       </div>
   )
