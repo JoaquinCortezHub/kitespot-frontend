@@ -1,6 +1,7 @@
 // Server Component (no 'use client' directive)
 import type { Metadata } from "next";
 import ClientLayout from "./client-layout";
+import Header from "@/components/header";
 
 export const metadata: Metadata = {
   title: "KiteSpot",
@@ -12,5 +13,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ClientLayout>{children}</ClientLayout>;
+  return <ClientLayout><Header></Header>{children}</ClientLayout>;
 }
