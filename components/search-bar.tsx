@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     };
 
     return(
-        <form onSubmit={handleSubmit} className="flex items-center gap-2 w-full mb-4">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 w-full my-4">
             <input 
                 type="text"
                 value={searchQuery}

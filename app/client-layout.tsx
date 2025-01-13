@@ -29,7 +29,7 @@ export default function ClientLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
 			>
 				<QueryClientProvider client={queryClient}>
-					<div className="mx-auto px-6 sm:px-6 lg:px-36">{children}</div>
+					<div className="">{children}</div>
 				</QueryClientProvider>
 			</body>
 		</html>

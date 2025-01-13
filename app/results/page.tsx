@@ -35,8 +35,8 @@ export default function ResultsPage() {
     };
 
     return(
-        <div className="w-full">
-            <SearchBar onSearch={handleNewSearch} />
+        <div className="mx-auto px-6 sm:px-6 lg:px-36 mt-24">
+            <SearchBar onSearch={handleNewSearch}  />
             {weatherLoading || imageLoading ? (
                 <SkeletonDisplay />
             ) : (
