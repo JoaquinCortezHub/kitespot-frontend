@@ -23,12 +23,12 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar spots..."
-                className="w-full px-4 py-2 rounded-md border active:border-slate-600 "
+                className="w-full px-4 py-2 rounded-md border active:border-slate-600 border-none"
             />
             <Button
                 type="submit"
                 variant={'outline'}
-                className=" bg-white hover:bg-blue-500 hover:text-white transition-colors"
+                className=" bg-white hover:bg-blue-400 hover:text-white transition-colors"
             >
                 Buscar
             </Button>

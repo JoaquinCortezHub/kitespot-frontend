@@ -18,7 +18,7 @@ const Header = () => {
 			<div className="flex items-center justify-between gap-8">
 				<Button
 					variant={"outline"}
-					className="hover:bg-blue-500 hover:text-white rounded-full"
+					className="bg-blue-500 text-white hover:bg-blue-600 rounded-full"
 				>
 					Ingresar
 				</Button>

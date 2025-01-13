@@ -20,7 +20,7 @@ export default function InfoCard({
 				<CardTitle className="text-slate-600 font-semibold">{title}</CardTitle>
 				<CardContent className="flex flex-col">
 					<div className="flex flex-col items-center justify-start gap-2 mb-6">
-						<div className="flex items-center justify-center rounded-full bg-slate-300 w-16 h-16">
+						<div className="flex items-center justify-center rounded-full bg-blue-300 w-16 h-16">
 							<Icon className="w-6 h-6" />
 						</div>
 						<div className="flex flex-col items-center">
