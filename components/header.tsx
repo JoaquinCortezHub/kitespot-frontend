@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import NavbarMenu from "./nav-menu";
 
 const Header = () => {
 	return (
@@ -10,10 +11,11 @@ const Header = () => {
 					<Link href={"/"}>KiteSpot</Link>
 				</h1>
 			</div>
-			<div className="flex items-center justify-between gap-4">
-				<Link href={'#'}>Servicios \/</Link>
+			<div className="flex items-center justify-between gap-4 font-medium">
+				<NavbarMenu />
+				{/* <Link href={'#'}>Servicios</Link>
 				<Link href={'#'}>blog</Link>
-				<Link href={'#'}>Nosotros</Link>
+				<Link href={'#'}>Nosotros</Link> */}
 			</div>
 			<div className="flex items-center justify-between gap-8">
 				<Button

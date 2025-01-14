@@ -45,7 +45,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 			<div className="flex flex-col mb-16">
 				<ImageBanner imageUrl={safeImage.imageUrl} author={safeImage.author} />
 				<div className="flex items-center justify-start gap-2">
-					<h1 className="text-3xl font-bold">
+					<h1 className="text-2xl md:text-3xl font-bold">
 						{currentWeather.name}, {currentWeather.sys.country}
 					</h1>
 					<img
@@ -58,11 +58,11 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 						Última actualización: {formattedLastUpdated}
 					</p>
 				</div>
-				<div className="mt-4 text-2xl font-bold text-slate-600">
+				<div className="mt-4 text-xl md:text-2xl font-bold text-slate-600">
 					<h4 className="mb-1">Hoy</h4>
 				</div>
 					<hr className="stroke-2" />
-				<div className="grid grid-cols-4 justify-items-stretch mt-6 gap-4 ">
+				<div className="grid md:grid-cols-4 justify-items-stretch mt-6 gap-4 ">
 					<InfoCard
 						title="Viento"
 						icon={Wind}
@@ -92,7 +92,7 @@ export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
                     />
 				</div>
 				<div className="flex items-center justify-start gap-2 mt-4 text-2xl font-bold text-slate-600">
-					<h4 className="mb-1">Esta Semana</h4>
+					<h4 className="mb-1 text-xl md:text-2xl ">Esta Semana</h4>
 				</div>
 					<hr className="stroke-2" />
 				<ForecastDisplay forecast={forecast} />
