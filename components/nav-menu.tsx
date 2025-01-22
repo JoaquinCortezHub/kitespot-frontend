@@ -10,7 +10,7 @@ import {
 	NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Calendar, Lightbulb, Map, Wind } from "lucide-react";
 
 export default function NavbarMenu() {
