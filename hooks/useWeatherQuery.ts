@@ -8,7 +8,7 @@ export const useWeatherQuery = (searchTrigger: string) => {
 			if (!searchTrigger) return null;
 
 			const response = await fetch(
-				`http://localhost:8000/weather?city=${encodeURIComponent(
+				`https://kitespot-backend-production.up.railway.app/weather?city=${encodeURIComponent(
 					searchTrigger
 				)}`
 			);

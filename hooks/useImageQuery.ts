@@ -7,7 +7,7 @@ export const useImageQuery = (spotName: string) => {
 			if (!spotName) return null;
 
 			const response = await fetch(
-				`http://localhost:8000/unsplash/getSpotImage?spot=${encodeURIComponent(spotName)}`
+				`https://kitespot-backend-production.up.railway.app/unsplash/getSpotImage?spot=${encodeURIComponent(spotName)}`
 			);
 
 			if (!response.ok) {
@@ -19,3 +19,4 @@ export const useImageQuery = (spotName: string) => {
 		enabled: !!spotName, 
 	});
 };
+
