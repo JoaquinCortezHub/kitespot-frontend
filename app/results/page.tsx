@@ -10,8 +10,18 @@ import SearchBar from "@/components/search-bar";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function ResultsPage() {
+    
+    return (
+        <Suspense fallback={<SkeletonDisplay />}>
+            <SearchParamsWrapper />
+        </Suspense>
+    );
+};
+
+function SearchParamsWrapper() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get("query");
@@ -49,7 +59,7 @@ export default function ResultsPage() {
     if(weatherError || imageError) {
         return(
             <div className="flex flex-col items-center justify-center min-h-screen">
-                <img
+                <Image
                     src="404.png" 
                     alt="Results not found image" 
                     className="h-[450px] w-[500px] rounded-full"
@@ -70,18 +80,15 @@ export default function ResultsPage() {
     }
 
     return(
-        <Suspense fallback={<SkeletonDisplay />}>
-            <div className="mx-auto px-6 sm:px-6 lg:px-36 mt-24">
-                <SearchBar onSearch={handleNewSearch}  />
-                {weatherLoading || imageLoading ? (
-                    <SkeletonDisplay />
-                ) : (
-                    <>
-                        {weatherData && <DataDisplay weather={weatherData} image={imageData} />}
-                    </>
-                )}
-            </div>
-
-        </Suspense>
-    )
-}
+        <div className="mx-auto px-6 sm:px-6 lg:px-36 mt-24">
+            <SearchBar onSearch={handleNewSearch}  />
+            {weatherLoading || imageLoading ? (
+                <SkeletonDisplay />
+            ) : (
+                <>
+                    {weatherData && <DataDisplay weather={weatherData} image={imageData} />}
+                </>
+            )}
+        </div>
+    );
+};
