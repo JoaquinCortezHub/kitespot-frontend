@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useWeatherQuery } from "@/hooks/useWeatherQuery"; 
 import { useImageQuery } from "@/hooks/useImageQuery";
@@ -70,15 +70,18 @@ export default function ResultsPage() {
     }
 
     return(
-        <div className="mx-auto px-6 sm:px-6 lg:px-36 mt-24">
-            <SearchBar onSearch={handleNewSearch}  />
-            {weatherLoading || imageLoading ? (
-                <SkeletonDisplay />
-            ) : (
-                <>
-					{weatherData && <DataDisplay weather={weatherData} image={imageData} />}
-                </>
-            )}
-        </div>
+        <Suspense fallback={<SkeletonDisplay />}>
+            <div className="mx-auto px-6 sm:px-6 lg:px-36 mt-24">
+                <SearchBar onSearch={handleNewSearch}  />
+                {weatherLoading || imageLoading ? (
+                    <SkeletonDisplay />
+                ) : (
+                    <>
+                        {weatherData && <DataDisplay weather={weatherData} image={imageData} />}
+                    </>
+                )}
+            </div>
+
+        </Suspense>
     )
 }
