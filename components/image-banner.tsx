@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type BannerProps = {
@@ -10,7 +11,7 @@ const ImageBanner: React.FC<BannerProps> = ({ imageUrl, author }) => {
 
     return (
         <div className="relative group mb-1">
-            <img 
+            <Image 
                 src={imageUrl || fallBackUrl} 
                 alt="Spot picture"
                 className="w-full h-[350px] object-cover rounded-xl"

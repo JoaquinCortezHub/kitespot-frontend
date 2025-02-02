@@ -25,7 +25,7 @@ type WeatherDisplayProps = {
 export default function DataDisplay({ weather, image }: WeatherDisplayProps) {
 	const {currentWeather, forecast, lastUpdated} = weather;
 	const formattedLastUpdated = lastUpdated ? format(new Date(lastUpdated), "HH:mm") : "N/A";
-	const city = currentWeather.name;
+	// const city = currentWeather.name;
 	const fallBackImage = {
 		imageUrl: "https://via.placeholder.com/800x350?text=No+Image+Available",
 		author: { firstName: "Unknown", lastName: "" }
